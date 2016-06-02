@@ -45,7 +45,7 @@ define :app_vhost, :server_type => nil, :site => {} do
         content node['ssl_certs'][f]
         notifies :reload, "service[#{service_name}]", :delayed
       end
-    end if protocol == 'https'
+    end if protocol == 'https' && site['skip_ssl_write'] == false
 
     self.send "#{type}_site", name do
       enable (defined? site['enable'] ? site['enable'] : true)
