@@ -2,9 +2,16 @@ include_recipe 'config-driven-helper::nginx-compat-disable-default'
 include_recipe 'config-driven-helper::nginx-compat-https-map-emulation'
 
 node['nginx']['sites'].each do |name, site_attrs|
+  if site_attrs['skip_ssl_write'].nil?
+    skip = node['skip_ssl_write']
+  else
+    skip = site_attrs['skip_ssl_write']
+  end
+
   definition = app_vhost name do
     site site_attrs
     server_type 'nginx'
+    skip_ssl_write skip
   end
 
   # Different versions of Chef return definitions differently
