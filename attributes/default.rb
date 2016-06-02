@@ -4,7 +4,7 @@ default['apache']['sites'] = {}
 default['ssl_certs'] = {}
 default['skip_ssl_write'] = false
 
-default['nginx']['https_variable_emulation'] = false
+default['nginx']['https_variable_emulation'] = true
 
 protocols = {
   'nginx' => 'TLSv1 TLSv1.1 TLSv1.2',
